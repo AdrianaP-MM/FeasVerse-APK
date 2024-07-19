@@ -159,7 +159,7 @@ const Inicio = ({ navigation }) => {
                                     <Image
                                         source={masVendido.foto_detalle_zapato ?
                                             { uri: `${Config.IP}/FeasVerse/api/helpers/images/zapatos/${masVendido.foto_detalle_zapato}` }
-                                            : require('../../img/defaultImage.png')}
+                                            : require('../../img/defaultImage.jpg')}
                                         style={styles.shoeImg}
                                     />
                                 </TouchableOpacity>
