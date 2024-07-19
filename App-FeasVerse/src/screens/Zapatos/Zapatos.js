@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Alert, ScrollView, Dimensions, Animated, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import Text from '../../components/utils/Text';
 import CardMarca from '../../components/zapatos/cardMarca';
 import CardZapato from '../../components/zapatos/cardZapato';

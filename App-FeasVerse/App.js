@@ -56,10 +56,10 @@ const App = () => {
 
     const [fontsLoaded] = useFonts({
         'TTWeb-Black': require('../App-FeasVerse/assets/fonts/TitilliumWeb-Black.ttf'),
-        'TTWeb-Bold': require('../FeasVerse-Movil/assets/fonts/TitilliumWeb-Bold.ttf'),
-        'TTWeb-Regular': require('../FeasVerse-Movil/assets/fonts/TitilliumWeb-Regular.ttf'),
-        'TTWeb-Light': require('../FeasVerse-Movil/assets/fonts/TitilliumWeb-Light.ttf'),
-        'TTWeb-SemiBold': require('../FeasVerse-Movil/assets/fonts/TitilliumWeb-SemiBold.ttf'),
+        'TTWeb-Bold': require('../App-FeasVerse/assets/fonts/TitilliumWeb-Bold.ttf'),
+        'TTWeb-Regular': require('../App-FeasVerse/assets/fonts/TitilliumWeb-Regular.ttf'),
+        'TTWeb-Light': require('../App-FeasVerse/assets/fonts/TitilliumWeb-Light.ttf'),
+        'TTWeb-SemiBold': require('../App-FeasVerse/assets/fonts/TitilliumWeb-SemiBold.ttf'),
     });
 
     useEffect(() => {
