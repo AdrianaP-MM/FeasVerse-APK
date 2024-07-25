@@ -6,7 +6,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import CustomTextInput from '../../components/inputs/CustomTextInput ';
 import CustomTextInputPassword from '../../components/inputs/CustomTextInputPassword';
 
-
 // Componente funcional Registrarse
 const Registrarse = ({ navigation }) => {
     const [nombre, setNombre] = useState('');
@@ -74,7 +73,7 @@ const Registrarse = ({ navigation }) => {
             return;
         }
 
-        let url = `${Config.IP}/FeasVerse/api/services/publica/cliente.php?action=signUp`;
+        let url = `${Config.IP}/FeasVerse-Api/api/services/publica/cliente.php?action=signUp`
         const formData = new FormData();
         formData.append('nombreInput', nombre);
         formData.append('apellidosInput', apellido);
@@ -102,9 +101,17 @@ const Registrarse = ({ navigation }) => {
         }
     };
 
+    // Función para formatear el número de teléfono
+    const handleTelefonoChange = (text) => {
+        const formattedText = text.replace(/\D/g, '') // Eliminar caracteres no numéricos
+            .replace(/(\d{4})(\d)/, '$1-$2') // Insertar el guión después de los primeros 4 dígitos
+            .slice(0, 9); // Limitar la longitud a 9 caracteres
+        setTelefono(formattedText);
+    };
+
     // Estructura de la pantalla
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.textTitle}>Registrarse</Text>
             <CustomTextInput
                 label="Nombre"
@@ -143,7 +150,7 @@ const Registrarse = ({ navigation }) => {
                 label="Teléfono"
                 valor={telefono}
                 maxLength={9}
-                onChangeText={setTelefono}
+                onChangeText={handleTelefonoChange}
                 keyboardType="numeric"
                 placeholder="Introduce tu número de teléfono"
                 autoCapitalize="none"
@@ -205,19 +212,19 @@ const Registrarse = ({ navigation }) => {
 // Estilos para los componentes de la pantalla
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: 'white',
-        //alignItems: 'center',
-        //justifyContent: 'center',
+        padding: 20,
+        alignItems: 'center',
     },
     containerFecha: {
-        justifyContent: 'center',
-        paddingHorizontal: 16,
+        width: '100%',
         marginVertical: 10,
+        alignItems: 'center',
     },
     btnContainer: {
         marginTop: 20,
-        width: '80%',
+        width: '100%',
         height: 50,
         borderRadius: 4,
         overflow: 'hidden',

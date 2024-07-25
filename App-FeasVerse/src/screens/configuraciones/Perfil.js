@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, Dim
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, FontSizes, Config } from '../../utils/constantes';
 import { useFocusEffect } from '@react-navigation/native';
+import CustomTextInput from '../../components/inputs/CustomTextInput ';
 
 // para conseguir el width de la pantalla
 const { width } = Dimensions.get('window');
@@ -29,6 +30,9 @@ const Perfil = ({ navigation }) => {
     const [modalDireccion, setModalDireccion] = useState('');
     const [modalID, setModalID] = useState('');
 
+    const [isEditable, setIsEditable] = useState(true);
+
+
     // Efecto para cargar los datos del carrito
     useFocusEffect(
         React.useCallback(() => {
@@ -39,7 +43,7 @@ const Perfil = ({ navigation }) => {
     // Función para obtener los datos del usuario
     const fetchUsuario = () => {
         setLoading(true);
-        fetch(`${Config.IP}/FeasVerse/api/services/publica/cliente.php?action=readCliente`)
+        fetch(`${Config.IP}/FeasVerse-Api/api/services/publica/cliente.php?action=readCliente`)
             .then(response => response.json())
             .then(data => {
                 console.log("Datos recibidos del servidor:", data); 
@@ -78,7 +82,7 @@ const Perfil = ({ navigation }) => {
             formData.append('fechanInput', modalNacimiento.toISOString().split('T')[0]);
             formData.append('direccion', modalDireccion);
     
-            const response = await fetch(`${Config.IP}/FeasVerse/api/services/publica/cliente.php?action=editProfile`, {
+            const response = await fetch(`${Config.IP}/FeasVerse-Api/api/services/publica/cliente.php?action=editProfile`, {
                 method: 'POST',
                 body: formData
             });
@@ -146,68 +150,69 @@ const Perfil = ({ navigation }) => {
             <View style={styles.labelBackground} />
             <View style={styles.headerLine} />
             <View style={styles.inputs}>
-                <TextInput
+                <CustomTextInput
                     label="Nombre"
-                    valor={nombre}
-                    onChangeText={setNombre}
+                    value={nombre}
+                    onChange={setNombre}
                     keyboardType="default"
-                    placeholder="Introduce tu nombre"
+                    placeholder="Nombre"
                     autoCapitalize="words"
                     editable={false}
                 />
-                <TextInput
+                <CustomTextInput
                     label="Apellido"
-                    valor={apellido}
+                    value={apellido}
                     onChangeText={setApellido}
                     keyboardType="default"
-                    placeholder="Introduce tu apellido"
+                    placeholder="Apellido"
                     autoCapitalize="words"
                     editable={false}
                 />
-                <TextInput
+                <CustomTextInput
                     label="Correo electrónico"
-                    valor={correo}
+                    value={correo}
                     onChangeText={setCorreo}
                     keyboardType="email-address"
-                    placeholder="Introduce tu correo"
+                    placeholder="Correo electrónico"
                     autoCapitalize="none"
                     editable={false}
                 />
-                <TextInput
+                <CustomTextInput
                     label="DUI"
-                    valor={dui}
+                    value={dui}
                     maxLength={10}
                     onChangeText={setDUI}
                     keyboardType="default"
-                    placeholder="Introduce tu DUI"
                     autoCapitalize="none"
+                    placeholder="DUI"
                     editable={false}
                 />
-                <TextInput
+                <CustomTextInput
                     label="Teléfono"
-                    valor={telefono}
+                    value={telefono}
                     maxLength={9}
                     onChangeText={setTelefono}
                     keyboardType="numeric"
-                    placeholder="Introduce tu número de teléfono"
                     autoCapitalize="none"
+                    placeholder="Teléfono"
                     editable={false}
                 />
                 <View style={styles.containerFecha}>
                     <Text style={styles.text}>Fecha de nacimiento: {nacimiento.toLocaleDateString()}</Text>
                 </View>
-                <TextInput
+                <CustomTextInput
                     label="Dirección"
-                    valor={direccion}
+                    value={direccion}
                     onChangeText={setDireccion}
                     keyboardType="default"
-                    placeholder="Introduce tu dirección"
                     autoCapitalize="sentences"
+                    placeholder="Dirección"
                     editable={false}
                 />
                 <View style={styles.btnContainer}>
                     <Button
                         title="Editar Informacion"
+                        color="white"
                         onPress={openModal}
                     />
                 </View>
@@ -239,7 +244,9 @@ const Perfil = ({ navigation }) => {
                             value={modalCorreo}
                             placeholder="Correo"
                             keyboardType="email-address"
-                        />
+                            editable={isEditable}
+                            />
+                            <Button title="Toggle Editable" onPress={() => setIsEditable(!isEditable)} />
                         <TextInput
                             style={styles.input}
                             onChangeText={setModalDUI}
@@ -264,6 +271,7 @@ const Perfil = ({ navigation }) => {
                         <View style={styles.btnContainer}>
                             <Button
                                 title="Guardar"
+                                color="white"
                                 onPress={handleEdit}
                             />
                         </View>
@@ -301,6 +309,9 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 4,
         overflow: 'hidden',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        
     },
     headerLabel: {
         backgroundColor: '#007BFF',
@@ -419,7 +430,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        marginVertical: 10,
+        marginBottom: 10,
     },
     input: {
         height: 40,

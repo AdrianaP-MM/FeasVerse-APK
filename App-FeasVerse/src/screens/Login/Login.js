@@ -3,7 +3,6 @@ import { StyleSheet, View, Button, Image, Text, Alert, TouchableOpacity, TextInp
 import { Colors, FontSizes, Config } from '../../utils/constantes';
 import CustomTextInput from '../../components/inputs/CustomTextInput ';
 import CustomTextInputPassword from '../../components/inputs/CustomTextInputPassword';
-
 import * as Font from 'expo-font';
 
 // Importar el componente de inicio de sesión
@@ -53,11 +52,10 @@ const LogIn = ({ logueado, setLogueado, navigation }) => {
 
     // Manejar el inicio de sesión
     const handlerLogin = async () => {
-        let url = `${Config.IP}/FeasVerse/api/services/publica/cliente.php?action=logIn`;
+        let url = `${Config.IP}/FeasVerse-Api/api/services/publica/cliente.php?action=logIn`;
         const formData = new FormData();
         formData.append('correo', correo);
         formData.append('clave', clave);
-        console.log(datos);
         // Realizar la petición HTTP
         const fetchApi = await fetch(url, {
             method: 'POST',
@@ -69,25 +67,10 @@ const LogIn = ({ logueado, setLogueado, navigation }) => {
             Alert.alert('Has iniciado correctamente sesión');
             handelViewInicio();
         } else {
-            console.log(datos);
             Alert.alert('Error de sesión', datos.error);
         }
     };
-
-    // Manejar el cierre de sesión
-    const handleLogOut = async () => {
-        const url = `${Config.IP}/FeasVerse/api/services/publica/cliente.php?action=logOut`;
-        // Realizar la petición HTTP
-        const fetchApi = await fetch(url);
-        const datos = await fetchApi.json();
-        if (datos.status) {
-            setLogueado(false);
-        } else {
-            console.log(datos);
-            Alert.alert('Error de sesión', datos.error);
-        }
-    };
-
+    
     // Estructura de la pantalla
     return (
         <View style={styles.container}>
@@ -104,6 +87,7 @@ const LogIn = ({ logueado, setLogueado, navigation }) => {
                 onChangeText={setCorreo}
                 keyboardType="email-address"
                 placeholder="Introduce tu correo"
+                style={styles.input}
             />
             <CustomTextInputPassword
                 valor={clave}
@@ -111,6 +95,7 @@ const LogIn = ({ logueado, setLogueado, navigation }) => {
                 label="Contraseña"
                 placeholder="Introduce tu contraseña"
                 secureTextEntry={true}
+                style={styles.input}
             />
             <View style={styles.btnContainer}>
                 <Button
@@ -145,6 +130,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 20, // Padding horizontal para todo el contenedor
     },
     logo: {
         width: 120,
@@ -153,7 +139,7 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         marginTop: 20,
-        width: '80%',
+        width: '100%',
         height: 50,
         borderRadius: 4,
         color: Colors.TituloL,
@@ -170,6 +156,10 @@ const styles = StyleSheet.create({
         fontSize: FontSizes.Titulos,
         fontFamily: 'Bold',
         marginBottom: 60,
+    },
+    input: {
+        width: '100%', // Hacer que los inputs tomen todo el ancho disponible
+        marginBottom: 15, // Margen inferior para separar los inputs
     },
     row: {
         flexDirection: 'row',

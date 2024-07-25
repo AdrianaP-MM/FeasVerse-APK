@@ -28,7 +28,7 @@ const App = () => {
     const [initialRoute, setInitialRoute] = useState('LogIn');
 
     const fetchData = async (api, action, formData = null) => {
-        const url = `${Config.IP}/FeasVerse/api/${api}?action=${action}`;
+        const url = `${Config.IP}/FeasVerse-Api/api/${api}?action=${action}`;
         const options = formData ? { method: 'POST', body: formData } : { method: 'GET' };
         const response = await fetch(url, options);
         const text = await response.text();
@@ -67,6 +67,8 @@ const App = () => {
             try {
                 if (fontsLoaded) {
                     const DATA = await fetchData('services/publica/cliente.php', 'getUser');
+                    
+                    console.log('HOLA'+DATA);
                     if (DATA.session) {
                         comprobarCarrito();
                         setInitialRoute('Inicio');

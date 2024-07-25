@@ -158,7 +158,7 @@ const Inicio = ({ navigation }) => {
                                 <TouchableOpacity onPress={handleViewDetalleMas}>
                                     <Image
                                         source={masVendido.foto_detalle_zapato ?
-                                            { uri: `${Config.IP}/FeasVerse/api/helpers/images/zapatos/${masVendido.foto_detalle_zapato}` }
+                                            { uri: `${Config.IP}/FeasVerse-Api/api/helpers/images/zapatos/${masVendido.foto_detalle_zapato}` }
                                             : require('../../img/defaultImage.jpg')}
                                         style={styles.shoeImg}
                                     />
